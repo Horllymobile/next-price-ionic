@@ -1,0 +1,7 @@
+{
+  "name": "next-price-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
