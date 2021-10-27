@@ -1,20 +1,19 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ResetPageRoutingModule } from './reset-routing.module';
-
-import { ResetPage } from './reset.page';
+import { ResetPasswordPage } from './reset-password.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ResetPageRoutingModule
+    RouterModule
   ],
-  declarations: [ResetPage]
+  declarations: [ResetPasswordPage]
 })
-export class ResetPageModule {}
+export class ResetPasswordPageModule {}
