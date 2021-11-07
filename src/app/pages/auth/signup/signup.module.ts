@@ -1,19 +1,14 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { SignupPage } from './signup.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule
-  ],
-  declarations: [SignupPage]
+  imports: [CommonModule, ReactiveFormsModule, IonicModule, RouterModule],
+  declarations: [SignupPage],
 })
 export class SignupPageModule {}

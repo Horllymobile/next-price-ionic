@@ -1,0 +1,94 @@
+<ion-content class="ion-padding">
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" sizeMd="12" sizeSm="12" class="top-image ion-text-center ion-padding-top ion-padding">
+        <ion-img class="top-image" src="./../../assets/imgs/next-price-small-logo.svg"></ion-img>
+      </ion-col>
+
+      <ion-col size="12" sizeSm="12" sizeMd="12">
+        <h1 class="ion-text-bold">Welcome</h1>
+        <ion-text>
+          <p class="">Sign in to continue!</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="ion-padding-right ion-padding-left">
+    <ion-row>
+      <ion-col sizeSm="12" sizeMd="6" offsetMd="3">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+          <ion-item class="box" lines="none"
+            [ngClass]="{'error-box': (loginFormData.email.touched && (loginFormData.email.hasError('required') || loginFormData.email.hasError('email')))}">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input color="{{ (loginFormData.email.invalid && loginFormData.email.touched) ? 'danger' : '' }}"
+              type="text" formControlName="email"></ion-input>
+            <ion-text color="danger"
+              *ngIf="loginFormData.email.touched && loginFormData.email.invalid && loginFormData.email.hasError('required')">
+              Email is required</ion-text>
+            <ion-text color="danger"
+              *ngIf=" loginFormData.email.touched &&  loginFormData.email.invalid && loginFormData.email.hasError('email')">
+              Invalid email address</ion-text>
+          </ion-item>
+
+          <ion-item class="box" lines="none"
+            [ngClass]="{'error-box': (loginFormData.password.touched && (loginFormData.password.hasError('required')))}">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input [type]="showPassword ? 'text': 'password'" formControlName="password"></ion-input>
+            <ion-icon *ngIf="!showPassword" color="primary" (click)="funShowPassword()" name="eye-outline" slot="end"
+              class="ion-padding-top"></ion-icon>
+            <ion-icon *ngIf="showPassword" color="primary" (click)="funShowPassword()" name="eye-off-outline" slot="end"
+              class="ion-padding-top"></ion-icon>
+
+            <ion-text color="danger"
+              *ngIf="loginFormData.password.touched && loginFormData.password.invalid && loginFormData.password.hasError('required')">
+              Password is required</ion-text>
+            <ion-text color="danger"
+              *ngIf=" loginFormData.password.touched &&  loginFormData.password.invalid && loginFormData.password.hasError('max', 'password')">
+              Minimum password requirement is 5</ion-text>
+            <ion-text color="danger"
+              *ngIf=" loginFormData.password.touched &&  loginFormData.password.invalid && loginFormData.password.hasError('max')">
+              Maximum password requirement is 16</ion-text>
+          </ion-item>
+
+          <ion-button type="submit" [disabled]="loginForm.invalid" class="mt-5" size="large" expand="block"
+            color="dark">
+            <ion-spinner *ngIf="isLoading" slot="start" color="light" name="bubbles"></ion-spinner> Login
+          </ion-button>
+
+        </form>
+      </ion-col>
+    </ion-row>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="6" offsetMd="3" class="mt-5">
+
+          <ion-grid>
+            <ion-row>
+              <ion-col sizeMd="12" class="ion-text-left" sizeSm="12">
+                <ion-text [routerLink]="['/signup']">
+                  <p>Create Account</p>
+                </ion-text>
+              </ion-col>
+
+              <ion-col sizeMd="12" class="ion-text-right" sizeSm="12">
+                <ion-text [routerLink]="['/reset-password']">
+                  <p>Forgotten Password</p>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-grid>
+
+  <ion-text class="ion-padding ion-text-center">
+    <p>Help a neighbour to know the prices</p>
+  </ion-text>
+
+</ion-content>

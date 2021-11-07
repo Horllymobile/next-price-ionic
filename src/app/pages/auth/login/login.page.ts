@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
   isLoading = false;
+  showPassword = false;
   constructor(
     private fb: FormBuilder
   ) { }
@@ -19,12 +20,16 @@ export class LoginPage implements OnInit {
   initForm() {
     this.loginForm = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required]]
+      password: [null, [Validators.required, Validators.min(5), Validators.max(16)]]
     });
   }
 
   get loginFormData() {
     return this.loginForm.controls;
+  }
+
+  funShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 
   onSubmit(formPayload: FormGroup) {

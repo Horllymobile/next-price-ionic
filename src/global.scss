@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -25,10 +25,21 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-
-.top-image{
-  width: 20%;
+.top-image {
+  width: 15%;
   margin: 10px auto;
+}
+
+.box {
+  border-color: #70706e;
+  margin-top: 20px;
+  border-width: thin;
+  border-style: solid;
+  border-radius: 3px;
+}
+
+.error-box {
+  border-color: red;
 }
 
 .pt-1 {
