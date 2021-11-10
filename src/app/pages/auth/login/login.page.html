@@ -19,7 +19,7 @@
   <ion-grid class="ion-padding-right ion-padding-left">
     <ion-row>
       <ion-col sizeSm="12" sizeMd="6" offsetMd="3">
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginFormData)">
 
           <ion-item class="box" lines="none"
             [ngClass]="{'error-box': (loginFormData.email.touched && (loginFormData.email.hasError('required') || loginFormData.email.hasError('email')))}">
@@ -40,9 +40,11 @@
           <ion-item class="box" lines="none"
             [ngClass]="{'error-box': (loginFormData.password.touched && (loginFormData.password.hasError('required')))}">
             <!-- <ion-label position="floating">Password</ion-label> -->
-            <ion-input [type]="showPassword ? 'text': 'password'" placeholder="Password" formControlName="password"></ion-input>
+            <ion-input [type]="showPassword ? 'text': 'password'" placeholder="Password" formControlName="password">
+            </ion-input>
             <ion-icon *ngIf="!showPassword" color="primary" (click)="funShowPassword()" name="eye-outline"></ion-icon>
-            <ion-icon *ngIf="showPassword" color="primary" (click)="funShowPassword()" name="eye-off-outline"></ion-icon>
+            <ion-icon *ngIf="showPassword" color="primary" (click)="funShowPassword()" name="eye-off-outline">
+            </ion-icon>
           </ion-item>
 
           <ion-item *ngIf="loginFormData.password.touched && loginFormData.password.errors" lines="none">
@@ -74,13 +76,13 @@
             <ion-row>
               <ion-col sizeMd="12" class="ion-text-left" sizeSm="12">
                 <ion-text [routerLink]="['/signup']">
-                  <p>Create Account</p>
+                  <p class="link">Create Account</p>
                 </ion-text>
               </ion-col>
 
               <ion-col sizeMd="12" class="ion-text-right" sizeSm="12">
                 <ion-text [routerLink]="['/reset-password']">
-                  <p>Forgotten Password</p>
+                  <p class="link">Forgotten Password</p>
                 </ion-text>
               </ion-col>
             </ion-row>
@@ -92,7 +94,7 @@
   </ion-grid>
 
   <ion-text class="ion-padding ion-text-center">
-    <p>Help a neighbour to know the prices</p>
+    <p>Login and contribute to the pricing world</p>
   </ion-text>
 
 </ion-content>

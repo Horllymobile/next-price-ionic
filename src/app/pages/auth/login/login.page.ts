@@ -1,5 +1,8 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { LoginRequest } from 'src/app/core/shared/models/user';
+import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -10,8 +13,10 @@ export class LoginPage implements OnInit {
   isLoading = false;
   showPassword = false;
   constructor(
-    private fb: FormBuilder
-  ) { }
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.initForm();
@@ -19,8 +24,11 @@ export class LoginPage implements OnInit {
 
   initForm() {
     this.loginForm = this.fb.group({
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required, Validators.min(5), Validators.max(16)]]
+      email: ['horlamidex1@g.com', [Validators.required, Validators.email]],
+      password: [
+        null,
+        [Validators.required, Validators.min(5), Validators.max(16)],
+      ],
     });
   }
 
@@ -32,12 +40,28 @@ export class LoginPage implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  onSubmit(formPayload: FormGroup) {
+  onSubmit(formPayload) {
     this.isLoading = true;
-    setTimeout(() => {
-      console.log(formPayload.value);
-      this.isLoading = false;
-    }, 2000);
+    console.log(formPayload);
+    this.login({
+      email: formPayload.email.value,
+      password: formPayload.password.value,
+    });
   }
 
+  login(payload: { email: string; password: string }) {
+    const user = new LoginRequest(payload.email, payload.password);
+    const login = this.authService.login(user);
+    setTimeout(() => {
+      if (login) {
+        this.isLoading = false;
+        this.resetForm(this.loginForm);
+        this.router.navigate(['', 'dashboard', 'tab', 'home']);
+      }
+    }, 1000);
+  }
+
+  resetForm(form: FormGroup) {
+    form.reset();
+  }
 }
