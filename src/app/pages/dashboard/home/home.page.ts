@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
           price: 700,
           uom: 'kg',
           company: 'tobic gas station',
+          active: true,
         },
         {
           id: 'ID1224',
@@ -25,6 +26,7 @@ export class HomePage implements OnInit {
           uom: 'one',
           price: 100,
           company: 'general',
+          active: false,
         },
         {
           id: 'ID1225',
@@ -32,6 +34,15 @@ export class HomePage implements OnInit {
           uom: 'ltr',
           price: 200,
           company: 'robine fill station',
+          active: true,
+        },
+        {
+          id: 'ID1226',
+          title: 'Spagetti',
+          uom: 'one',
+          price: 250,
+          company: 'robine fill station',
+          active: false,
         },
       ];
     }, 2000);
@@ -45,4 +56,5 @@ interface IProduct {
   uom: string;
   company: string;
   description?: string;
+  active: boolean;
 }

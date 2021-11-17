@@ -15,15 +15,35 @@
 
 
     <ion-list>
-      <ion-item *ngFor="let item of data">
+      <ion-card *ngFor="let item of data">
+        <ion-item lines="none">
+          <ion-thumbnail>
+            <ion-img src="../../../../assets/imgs/dummy.jpg"></ion-img>
+          </ion-thumbnail>
+          <ion-label class="ion-padding">
+            <h4>
+              {{ item.title | titlecase }}
+            </h4>
+            <p> N{{ item.price }}/{{ item.uom | titlecase }}</p>
+            <p style="font-style: italic;">
+              {{ item.company | titlecase }}
+            </p>
+          </ion-label>
+          <ion-icon name="ellipse" [color]=" item.active ? 'success' : 'light' " slot="end"></ion-icon>
+        </ion-item>
+      </ion-card>
+      <!-- <ion-item detail class="ion-margin-top product-list" lines="none">
         <ion-thumbnail slot="start" class="ion-no-padding">
-          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+          <ion-img src="../../../../assets/imgs/dummy.jpg"></ion-img>
         </ion-thumbnail>
         <ion-label>
-          <h4>{{ item.title }}</h4>
+          <h2>{{ item.title | titlecase }}</h2>
+          <ion-text color="secondary" class="ion-margin-top">
+            <p> N{{ item.price }}/{{ item.uom | titlecase }}</p>
+          </ion-text>
 
         </ion-label>
-      </ion-item>
+      </ion-item> -->
     </ion-list>
   </div>
 
