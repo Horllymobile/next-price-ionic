@@ -1,13 +1,16 @@
-ion-tab-button{
+ion-tabs {
+  outline: none;
+  border: none;
+}
+
+ion-tab {
+  outline: none;
+  border: none;
+}
+
+ion-tab-button {
   // --background: black;
   // border-radius: 50%;
   // --color: black;
-  // --color-selected: white;
-}
-
-ion-tab-button[selected="true"]{
-  --background: #000000;
-  border-radius: 50%;
-  --color: white;
-  --color-selected: white;
+  --color-selected: #000;
 }

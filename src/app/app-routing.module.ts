@@ -27,13 +27,41 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'discover',
+        loadChildren: () =>
+          import('./pages/dashboard/discover/discover.module').then(
+            (m) => m.DiscoverPageModule
+          ),
+      },
+      {
+        path: 'create',
+        loadChildren: () =>
+          import('./pages/dashboard/create/create.module').then(
+            (m) => m.CreatePageModule
+          ),
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./pages/dashboard/settings/settings.module').then(
+            (m) => m.SettingsPageModule
+          ),
+      },
+      {
+        path: 'favourite',
+        loadChildren: () =>
+          import('./pages/dashboard/favourite/favourite.module').then(
+            (m) => m.FavouritePageModule
+          ),
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
-        pathMatch: 'full'
-      }
+        pathMatch: 'full',
+      },
     ],
     canActivate: [AuthGuard],
-  }
+  },
 ];
 
 @NgModule({
