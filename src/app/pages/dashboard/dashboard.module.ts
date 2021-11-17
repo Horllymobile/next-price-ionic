@@ -2,21 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePage } from './home/home.page';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: HomePage,
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
-];
+import { DashboardPage } from './dashboard.page';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  declarations: [
+    DashboardPage
+  ],
+  imports: [
+    CommonModule,
+    IonicModule
+  ],
 })
 export class DashboardModule {}

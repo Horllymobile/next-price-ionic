@@ -1,12 +1,12 @@
+import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { AuthGuard } from './core/shared/guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import {} from './pages/auth/auth-routing.module';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'tabs',
     pathMatch: 'full',
   },
 
@@ -15,15 +15,25 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/auth/auth.module').then((m) => m.AuthModule),
   },
-
   {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('./pages/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule
-      ),
+    path: 'tabs',
+    component: DashboardPage,
+    children: [
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./pages/dashboard/home/home.module').then(
+            (m) => m.HomePageModule
+          ),
+      },
+      {
+        path: '',
+        redirectTo: '/tabs/home',
+        pathMatch: 'full'
+      }
+    ],
     canActivate: [AuthGuard],
-  },
+  }
 ];
 
 @NgModule({
