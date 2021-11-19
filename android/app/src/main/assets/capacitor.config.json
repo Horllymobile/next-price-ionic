@@ -1,0 +1,7 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Next Price",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"plugins": {}
+}

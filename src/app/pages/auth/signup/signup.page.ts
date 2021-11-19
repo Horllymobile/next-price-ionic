@@ -8,6 +8,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class SignupPage implements OnInit {
   signUpForm: FormGroup;
   isLoading = false;
+  showPassword = false;
+
+  REG_EXP = {
+    number: /^[\+]?[0-9]{11,13}$/,
+  };
 
   constructor(private fb: FormBuilder) {}
 
@@ -24,7 +29,10 @@ export class SignupPage implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required]],
+      phoneNumber: [
+        '',
+        [Validators.required, Validators.pattern(this.REG_EXP.number)],
+      ],
       password: [
         '',
         [
@@ -34,5 +42,9 @@ export class SignupPage implements OnInit {
         ],
       ],
     });
+  }
+
+  funShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 }

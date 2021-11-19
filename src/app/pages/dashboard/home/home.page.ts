@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { PopoverController } from '@ionic/angular';
+import { DropdownMenuComponent } from '../../../components/dropdown-menu/dropdown-menu.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
   data: IProduct[];
-  constructor() {}
+  constructor(private popOverController: PopoverController) {}
 
   ngOnInit() {
     setTimeout(() => {
@@ -46,6 +47,17 @@ export class HomePage implements OnInit {
         },
       ];
     }, 2000);
+  }
+
+  async dropDownMenu(event: any) {
+    const popover = await this.popOverController.create({
+      component: DropdownMenuComponent,
+      event,
+      translucent: true,
+      id: 'logout',
+    });
+    await popover.present();
+    const { role } = await popover.onDidDismiss();
   }
 }
 

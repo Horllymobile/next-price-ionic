@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create.page.scss'],
 })
 export class CreatePage implements OnInit {
+  createPriceForm: FormGroup;
+  isLoading = false;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
+  get createPriceFormData() {
+    return this.createPriceForm.controls;
   }
-
+  ngOnInit() {}
 }

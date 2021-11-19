@@ -22,42 +22,32 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginFormData)">
 
           <ion-item class="box" lines="none"
-            [ngClass]="{'error-box': (loginFormData.email.touched && (loginFormData.email.hasError('required') || loginFormData.email.hasError('email')))}">
+            [ngClass]="{'error-box': loginFormData.email.dirty && loginFormData.email.errors}">
             <!-- <ion-label position="floating">Email</ion-label> -->
-            <ion-input color="{{ (loginFormData.email.invalid && loginFormData.email.touched) ? 'danger' : '' }}"
+            <ion-input color="{{ (loginFormData.email.dirty && loginFormData.email.errors) ? 'danger' : '' }}"
               type="text" placeholder="Email" formControlName="email"></ion-input>
           </ion-item>
-
-          <ion-item *ngIf="loginFormData.email.touched && loginFormData.email.errors" lines="none">
-            <ion-text color="danger"
-              *ngIf="loginFormData.email.touched && loginFormData.email.invalid && loginFormData.email.hasError('required')">
-              Email is required</ion-text>
-            <ion-text color="danger"
-              *ngIf=" loginFormData.email.touched &&  loginFormData.email.invalid && loginFormData.email.hasError('email')">
-              Invalid email address</ion-text>
-          </ion-item>
+          <ion-text *ngIf="loginFormData.email.dirty && loginFormData.email.errors" color="danger">
+            <p *ngIf="loginFormData.email.hasError('required')">
+              Email is required</p>
+            <p *ngIf="loginFormData.email.hasError('email')">
+              Invalid email address</p>
+          </ion-text>
 
           <ion-item class="box" lines="none"
-            [ngClass]="{'error-box': (loginFormData.password.touched && (loginFormData.password.hasError('required')))}">
-            <!-- <ion-label position="floating">Password</ion-label> -->
-            <ion-input [type]="showPassword ? 'text': 'password'" placeholder="Password" formControlName="password">
+            [ngClass]="{'error-box': (loginFormData.password.dirty && loginFormData.password.errors)}">
+            <ion-input color="{{ (loginFormData.password.dirty && loginFormData.password.errors) ? 'danger' : '' }}"
+              [type]="showPassword ? 'text': 'password'" placeholder="Password" formControlName="password">
             </ion-input>
             <ion-icon *ngIf="!showPassword" color="primary" (click)="funShowPassword()" name="eye-outline"></ion-icon>
             <ion-icon *ngIf="showPassword" color="primary" (click)="funShowPassword()" name="eye-off-outline">
             </ion-icon>
           </ion-item>
 
-          <ion-item *ngIf="loginFormData.password.touched && loginFormData.password.errors" lines="none">
-            <ion-text color="danger"
-              *ngIf="loginFormData.password.touched && loginFormData.password.invalid && loginFormData.password.hasError('required')">
-              Password is required</ion-text>
-            <ion-text color="danger"
-              *ngIf=" loginFormData.password.touched &&  loginFormData.password.invalid && loginFormData.password.hasError('max', 'password')">
-              Minimum password requirement is 5</ion-text>
-            <ion-text color="danger"
-              *ngIf=" loginFormData.password.touched &&  loginFormData.password.invalid && loginFormData.password.hasError('max')">
-              Maximum password requirement is 16</ion-text>
-          </ion-item>
+          <ion-text color="danger" *ngIf="loginFormData.password.dirty && loginFormData.password.errors">
+            <p *ngIf="loginFormData.password.hasError('required')">
+              Password is required</p>
+          </ion-text>
 
           <ion-button type="submit" [disabled]="loginForm.invalid" class="mt-5" size="large" expand="block"
             color="dark">

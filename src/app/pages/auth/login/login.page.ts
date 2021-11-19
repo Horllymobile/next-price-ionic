@@ -24,11 +24,8 @@ export class LoginPage implements OnInit {
 
   initForm() {
     this.loginForm = this.fb.group({
-      email: ['horlamidex1@g.com', [Validators.required, Validators.email]],
-      password: [
-        null,
-        [Validators.required, Validators.min(5), Validators.max(16)],
-      ],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required]],
     });
   }
 
@@ -55,8 +52,8 @@ export class LoginPage implements OnInit {
     setTimeout(() => {
       if (login) {
         this.isLoading = false;
+        this.router.navigate(['']);
         this.resetForm(this.loginForm);
-        this.router.navigate(['', 'dashboard', 'tab', 'home']);
       }
     }, 1000);
   }
