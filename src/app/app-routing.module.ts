@@ -1,66 +1,32 @@
-import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { AuthGuard } from './core/shared/guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { SessionGuard } from './core/shared/guards/session.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'tabs',
-    pathMatch: 'full',
-  },
-
   {
     path: 'auth',
     loadChildren: () =>
       import('./pages/auth/auth.module').then((m) => m.AuthModule),
+    canActivate: [SessionGuard],
   },
   {
-    path: 'tabs',
-    component: DashboardPage,
-    children: [
-      {
-        path: 'home',
-        loadChildren: () =>
-          import('./pages/dashboard/home/home.module').then(
-            (m) => m.HomePageModule
-          ),
-      },
-      {
-        path: 'discover',
-        loadChildren: () =>
-          import('./pages/dashboard/discover/discover.module').then(
-            (m) => m.DiscoverPageModule
-          ),
-      },
-      {
-        path: 'create',
-        loadChildren: () =>
-          import('./pages/dashboard/create/create.module').then(
-            (m) => m.CreatePageModule
-          ),
-      },
-      {
-        path: 'settings',
-        loadChildren: () =>
-          import('./pages/dashboard/settings/settings.module').then(
-            (m) => m.SettingsPageModule
-          ),
-      },
-      {
-        path: 'favourite',
-        loadChildren: () =>
-          import('./pages/dashboard/favourite/favourite.module').then(
-            (m) => m.FavouritePageModule
-          ),
-      },
-      {
-        path: '',
-        redirectTo: '/tabs/home',
-        pathMatch: 'full',
-      },
-    ],
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./pages/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
     canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    redirectTo: 'auth/login',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
+    redirectTo: 'auth/login',
+    pathMatch: 'full',
   },
 ];
 

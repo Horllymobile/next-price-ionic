@@ -3,20 +3,18 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
-  Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-
 import { Constants } from '../emuns/constants';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private storageService: StorageService) {}
-
+export class SessionGuard implements CanActivate {
+  constructor(private storageService: StorageService, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -27,11 +25,8 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     const user = this.storageService.get(Constants.USER_TOKEN);
     console.log(user);
-    if (!user) {
-      this.storageService.clear();
-      this.router.navigate(['', 'auth', 'login'], {
-        queryParams: { returnUrl: state.url },
-      });
+    if (user) {
+      this.router.navigate(['/dashboard/tab/home']);
       return false;
     }
     return true;

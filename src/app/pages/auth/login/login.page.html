@@ -1,9 +1,7 @@
 <ion-content class="ion-padding">
-
-
   <ion-grid>
     <ion-row>
-      <ion-col size="12" sizeMd="12" sizeSm="12" class="top-image ion-text-center ion-padding-top ion-padding">
+      <ion-col size="12" sizeMd="12" sizeSm="12" class="top-image ion-text-center">
         <ion-img class="top-image" src="./../../assets/imgs/next-price-small-logo.svg"></ion-img>
       </ion-col>
 
@@ -15,8 +13,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-  <ion-grid class="ion-padding-right ion-padding-left">
+  <ion-grid class="">
     <ion-row>
       <ion-col sizeSm="12" sizeMd="6" offsetMd="3">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginFormData)">
@@ -57,34 +54,9 @@
         </form>
       </ion-col>
     </ion-row>
-
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" sizeMd="6" offsetMd="3" class="mt-5">
-
-          <ion-grid>
-            <ion-row>
-              <ion-col sizeMd="12" class="ion-text-left" sizeSm="12">
-                <ion-text [routerLink]="['/signup']">
-                  <p class="link">Create Account</p>
-                </ion-text>
-              </ion-col>
-
-              <ion-col sizeMd="12" class="ion-text-right" sizeSm="12">
-                <ion-text [routerLink]="['/reset-password']">
-                  <p class="link">Forgotten Password</p>
-                </ion-text>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-
-        </ion-col>
-      </ion-row>
-    </ion-grid>
   </ion-grid>
-
-  <ion-text class="ion-padding ion-text-center">
-    <p>Login and contribute to the pricing world</p>
+  <ion-text class="ion-text-center" color="primary">
+    <p class="link" [routerLink]="['/signup']">Create Account</p>
+    <p class="link" [routerLink]="['/reset-password']">Forgotten Password</p>
   </ion-text>
-
 </ion-content>
