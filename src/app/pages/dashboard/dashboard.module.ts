@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { HomePage } from './home/home.page';
 import { DashboardPage } from './dashboard.page';
 import { IonicModule } from '@ionic/angular';
 import { HomePageModule } from './home/home.module';
@@ -13,6 +12,7 @@ import { SettingsPageModule } from './settings/settings.module';
 const routes: Routes = [
   {
     path: 'tab',
+    component: DashboardPage,
     children: [
       {
         path: 'home',
@@ -30,6 +30,11 @@ const routes: Routes = [
         path: 'create',
         loadChildren: () =>
           import('./create/create.module').then((m) => m.CreatePageModule),
+      },
+      {
+        path: 'edit/:productId',
+        loadChildren: () =>
+          import('./edit/edit.module').then((m) => m.EditPageModule),
       },
       {
         path: 'settings',

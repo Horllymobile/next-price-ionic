@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { DropdownMenuComponent } from '../../../components/dropdown-menu/dropdown-menu.component';
@@ -8,7 +9,10 @@ import { DropdownMenuComponent } from '../../../components/dropdown-menu/dropdow
 })
 export class HomePage implements OnInit {
   data: IProduct[];
-  constructor(private popOverController: PopoverController) {}
+  constructor(
+    private popOverController: PopoverController,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     setTimeout(() => {
@@ -19,15 +23,17 @@ export class HomePage implements OnInit {
           price: 700,
           uom: 'kg',
           company: 'tobic gas station',
-          active: true,
+          address: '138 Ijegun road Ikotun',
+          favourite: false,
         },
         {
           id: 'ID1224',
           title: 'egg roll',
           uom: 'one',
           price: 100,
+          address: 'shop 189 address',
           company: 'general',
-          active: false,
+          favourite: false,
         },
         {
           id: 'ID1225',
@@ -35,15 +41,17 @@ export class HomePage implements OnInit {
           uom: 'ltr',
           price: 200,
           company: 'robine fill station',
-          active: true,
+          address: 'shop 500 address',
+          favourite: false,
         },
         {
           id: 'ID1226',
           title: 'Spagetti',
           uom: 'one',
           price: 250,
+          address: 'building 230 address',
           company: 'robine fill station',
-          active: false,
+          favourite: true,
         },
       ];
     }, 2000);
@@ -59,6 +67,16 @@ export class HomePage implements OnInit {
     await popover.present();
     const { role } = await popover.onDidDismiss();
   }
+
+  markAsFavourite(id: string) {
+    let item = this.data.find((item) => item.id === id);
+
+    item.favourite = !item.favourite;
+  }
+
+  editProduct(id: string) {
+    this.router.navigate(['', 'dashboard', 'tab', 'edit', id]);
+  }
 }
 
 interface IProduct {
@@ -68,5 +86,6 @@ interface IProduct {
   uom: string;
   company: string;
   description?: string;
-  active: boolean;
+  address?: string;
+  favourite: boolean;
 }
