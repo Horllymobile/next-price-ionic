@@ -1,0 +1,47 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Edit Product</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <form>
+
+    <ion-item class="box" lines="none">
+      <ion-input type="text" placeholder="Title"></ion-input>
+    </ion-item>
+
+    <ion-item class="box" lines="none">
+      <ion-input type="text" placeholder="Unit of measurement"></ion-input>
+    </ion-item>
+
+    <ion-item class="box" lines="none">
+      <ion-input type="number" placeholder="price per UOM"></ion-input>
+    </ion-item>
+
+    <ion-item class="box" lines="none">
+      <ion-input type="text" placeholder="Company or shop name"></ion-input>
+    </ion-item>
+
+    <ion-item class="box" lines="none">
+      <ion-input type="text" placeholder="address"></ion-input>
+    </ion-item>
+
+    <ion-item class="box" lines="none">
+      <ion-textarea placeholder="Description"></ion-textarea>
+    </ion-item>
+
+    <ion-button type="submit" class="mt-5" expand="block" color="dark">
+      <ion-spinner *ngIf="isLoading" slot="start" color="light" name="bubbles"></ion-spinner> Update
+    </ion-button>
+
+  </form>
+
+  <!-- <div class="ion-padding-top ion-padding-bottom ion-text-center">
+    <ion-text class="ion-padding-top ion-text-center">Help a neighbour to know the prices</ion-text>
+  </div> -->
+</ion-content>

@@ -2,6 +2,9 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { DropdownMenuComponent } from '../../../components/dropdown-menu/dropdown-menu.component';
+import { ModalController, ModalOptions } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
+import { EditProductComponent } from 'src/app/core/modals/edit-product/edit-product.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -11,7 +14,9 @@ export class HomePage implements OnInit {
   data: IProduct[];
   constructor(
     private popOverController: PopoverController,
-    private router: Router
+    private router: Router,
+    private modalController: ModalController,
+    private actionSheetCont: ActionSheetController
   ) {}
 
   ngOnInit() {
@@ -74,8 +79,49 @@ export class HomePage implements OnInit {
     item.favourite = !item.favourite;
   }
 
-  editProduct(id: string) {
-    this.router.navigate(['', 'dashboard', 'tab', 'edit', id]);
+  async editProduct(id: string) {
+    console.log(id);
+    const modal = await this.modalController.create({
+      component: EditProductComponent,
+      componentProps: { id },
+    });
+    // this.router.navigate(['', 'dashboard', 'tab', 'edit', id]);
+
+    await modal.present();
+  }
+
+  async openActionSheet() {
+    const actionSheet = await this.actionSheetCont.create({
+      header: 'Menu',
+      buttons: [
+        {
+          text: 'Profile',
+          role: 'profile',
+          icon: 'person',
+          handler: () => {
+            console.log('Profile click');
+          },
+        },
+        {
+          text: 'Logout',
+          role: 'logout',
+          icon: 'log-out-outline',
+          handler: () => {
+            console.log('Profile click');
+          },
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
   }
 }
 
