@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginRequest } from 'src/app/core/shared/models/user';
@@ -12,13 +12,17 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
   isLoading = false;
   showPassword = false;
+  returnUrl: string;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.initForm();
   }
 
@@ -52,13 +56,25 @@ export class LoginPage implements OnInit {
     setTimeout(() => {
       if (login) {
         this.isLoading = false;
-        this.router.navigate(['']);
         this.resetForm(this.loginForm);
+        if (this.returnUrl !== '/') {
+          this.goToReturnUrl();
+        } else {
+          this.goToHome();
+        }
       }
     }, 1000);
   }
 
   resetForm(form: FormGroup) {
     form.reset();
+  }
+
+  goToHome() {
+    this.router.navigate(['/dashboard/tab/home']);
+  }
+
+  goToReturnUrl() {
+    this.router.navigateByUrl(this.returnUrl);
   }
 }
