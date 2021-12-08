@@ -5,6 +5,7 @@ import { DropdownMenuComponent } from '../../../components/dropdown-menu/dropdow
 import { ModalController, ModalOptions } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { EditProductComponent } from 'src/app/core/modals/edit-product/edit-product.component';
+import { AuthService } from 'src/app/core/services/auth.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -16,7 +17,8 @@ export class HomePage implements OnInit {
     private popOverController: PopoverController,
     private router: Router,
     private modalController: ModalController,
-    private actionSheetCont: ActionSheetController
+    private actionSheetCont: ActionSheetController,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -107,7 +109,9 @@ export class HomePage implements OnInit {
           role: 'logout',
           icon: 'log-out-outline',
           handler: () => {
-            console.log('Profile click');
+            if (this.authService.logout()) {
+              this.router.navigate(['', 'auth', 'login']);
+            }
           },
         },
         {
