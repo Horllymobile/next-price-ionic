@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { ComponentRef } from '@ionic/core';
+import { LanguageComponent } from 'src/app/core/modals/language/language.component';
+import { EditProfileComponent } from 'src/app/core/modals/edit-profile/edit-profile.component';
+import { AuthService } from 'src/app/core/services/auth.service';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
@@ -7,7 +12,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
   dark = false;
-  constructor() {}
+
+  languageModalComponent = LanguageComponent;
+  editProfileModalComponent = EditProfileComponent;
+  constructor(
+    private modalController: ModalController,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -37,5 +49,19 @@ export class SettingsPage implements OnInit {
   lightTheme() {
     document.body.classList.remove('dark');
     this.dark = false;
+  }
+
+  async openModal(modal: ComponentRef) {
+    const modalCont = await this.modalController.create({
+      component: modal,
+    });
+
+    await modalCont.present();
+  }
+
+  logout() {
+    if (this.authService.logout()) {
+      this.router.navigate(['', 'auth', 'login']);
+    }
   }
 }

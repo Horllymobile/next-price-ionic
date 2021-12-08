@@ -10,18 +10,38 @@
 <ion-content class="ion-padding">
   <ion-list>
     <ion-item-group>
-      <ion-item *ngIf="dark" (click)="lightTheme()">Dark mode <ion-icon slot="end" name="contrast-outline">
-        </ion-icon>
+
+      <ion-item (click)="lightTheme()">
+        <ion-text class="ion-padding-top ion-padding-bottom">
+          Dark mode
+        </ion-text>
+
+        <ion-toggle [(ngModel)]="dark" (ionChange)="toggleDarkMode()" slot="end" settings></ion-toggle>
       </ion-item>
-      <ion-item *ngIf="!dark" (click)="toggleDarkMode()">Light mode <ion-icon slot="end" name="contrast-outline">
-        </ion-icon>
+
+
+      <ion-item (click)="openModal(languageModalComponent)">
+        <ion-text class="ion-padding-top ion-padding-bottom">
+          Language <ion-icon name="language-outline" slot="end">
+          </ion-icon>
+        </ion-text>
       </ion-item>
-      <ion-item>Language <ion-icon name="language-outline" slot="end"></ion-icon>
+
+
+      <ion-item class="ion-padding-top ion-padding-bottom" (click)="openModal(editProfileModalComponent)">
+        <ion-text>
+          Edit Profile <ion-icon name="create-outline" slot="end"></ion-icon>
+        </ion-text>
       </ion-item>
-      <ion-item>Edit Profile <ion-icon name="create-outline" slot="end"></ion-icon>
+
+
+      <ion-item (click)="logout()">
+        <ion-text class="ion-padding-top ion-padding-bottom">
+          Logout <ion-icon name="log-out-outline" slot="end"></ion-icon>
+        </ion-text>
       </ion-item>
-      <ion-item>Logout <ion-icon name="log-out-outline" slot="end"></ion-icon>
-      </ion-item>
+
+
     </ion-item-group>
   </ion-list>
 </ion-content>
