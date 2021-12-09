@@ -24,7 +24,6 @@ export class SessionGuard implements CanActivate {
     | boolean
     | UrlTree {
     const user = this.storageService.get(Constants.USER_TOKEN);
-    console.log(user);
     if (user) {
       this.router.navigate(['/dashboard/tab/home']);
       return false;

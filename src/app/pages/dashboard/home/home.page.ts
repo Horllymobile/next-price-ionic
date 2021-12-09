@@ -1,3 +1,4 @@
+import { ProfileModalComponent } from './../../../core/modals/profile-modal/profile-modal.component';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
@@ -92,40 +93,14 @@ export class HomePage implements OnInit {
     await modal.present();
   }
 
-  async openActionSheet() {
-    const actionSheet = await this.actionSheetCont.create({
-      header: 'Menu',
-      buttons: [
-        {
-          text: 'Profile',
-          role: 'profile',
-          icon: 'person',
-          handler: () => {
-            console.log('Profile click');
-          },
-        },
-        {
-          text: 'Logout',
-          role: 'logout',
-          icon: 'log-out-outline',
-          handler: () => {
-            if (this.authService.logout()) {
-              this.router.navigate(['', 'auth', 'login']);
-            }
-          },
-        },
-        {
-          text: 'Cancel',
-          icon: 'close',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          },
-        },
-      ],
+  async openProfile() {
+    const modal = await this.modalController.create({
+      component: ProfileModalComponent,
+      //  componentProps: { id },
     });
+    // this.router.navigate(['', 'dashboard', 'tab', 'edit', id]);
 
-    await actionSheet.present();
+    await modal.present();
   }
 }
 

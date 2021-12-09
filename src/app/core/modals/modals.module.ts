@@ -1,3 +1,4 @@
+import { ProfileModalComponent } from './profile-modal/profile-modal.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { LanguageComponent } from './language/language.component';
 import { IonicModule } from '@ionic/angular';
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
     CreateProductComponent,
     LanguageComponent,
     EditProfileComponent,
+    ProfileModalComponent,
   ],
   imports: [CommonModule, IonicModule],
 })

@@ -38,16 +38,6 @@ export class DashboardPage {
           },
         },
         {
-          text: 'Logout',
-          role: 'logout',
-          icon: 'log-out-outline',
-          handler: () => {
-            if (this.authService.logout()) {
-              this.router.navigate(['', 'auth', 'login']);
-            }
-          },
-        },
-        {
           text: 'Notifications',
           role: 'notifications',
           icon: 'notifications-outline',
@@ -61,6 +51,16 @@ export class DashboardPage {
           icon: 'settings-outline',
           handler: () => {
             this.router.navigate(['', 'dashboard', 'tab', 'settings']);
+          },
+        },
+        {
+          text: 'Logout',
+          role: 'logout',
+          icon: 'log-out-outline',
+          handler: () => {
+            if (this.authService.logout()) {
+              this.router.navigate(['', 'auth', 'login']);
+            }
           },
         },
         {

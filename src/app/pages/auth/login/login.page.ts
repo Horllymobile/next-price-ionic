@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
 
   onSubmit(formPayload) {
     this.isLoading = true;
-    console.log(formPayload);
+    //  console.log(formPayload);
     this.login({
       email: formPayload.email.value,
       password: formPayload.password.value,

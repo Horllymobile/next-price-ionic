@@ -1,0 +1,47 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">
+        <ion-icon color="dark" name="close" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item class="ion-text-center" lines="none">
+    <img style="border-radius: 50% !important; width: 150px; height: 150px; margin: 20px auto;"
+      src="../../../../assets/imgs/dummy.jpg" alt="Profile Image">
+  </ion-item>
+
+  <!-- <ion-icon name="pencil"></ion-icon> -->
+
+  <ion-list>
+    <ion-item>
+      <ion-text>Name: John Doe</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-text>Email: johndoe@doe.com</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-text>Phone: +1 225 844 8888</ion-text>
+      <!-- <ion-icon name="clipboard-outline" slot="end"></ion-icon> -->
+    </ion-item>
+
+    <ion-item lines="none" class="ion-margin-top">
+      <ion-button color="dark" size="default" expand="block">
+        <ion-icon name="pencil" slot="start"></ion-icon>
+        Edit
+      </ion-button>
+      <ion-button color="success" expand="block" size="default">
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+        Change Password
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
