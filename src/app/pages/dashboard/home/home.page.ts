@@ -1,3 +1,4 @@
+import { ViewProductDetailsComponent } from './../../../core/modals/view-product-details/view-product-details.component';
 import { ProfileModalComponent } from './../../../core/modals/profile-modal/profile-modal.component';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +8,7 @@ import { ModalController, ModalOptions } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { EditProductComponent } from 'src/app/core/modals/edit-product/edit-product.component';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { IProduct } from 'src/app/core/shared/models/product';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -102,15 +104,13 @@ export class HomePage implements OnInit {
 
     await modal.present();
   }
-}
 
-interface IProduct {
-  id?: string;
-  title: string;
-  price: number;
-  uom: string;
-  company: string;
-  description?: string;
-  address?: string;
-  favourite: boolean;
+  async viewProduct(product: IProduct) {
+    const modal = await this.modalController.create({
+      component: ViewProductDetailsComponent,
+      componentProps: { product },
+    });
+
+    await modal.present();
+  }
 }

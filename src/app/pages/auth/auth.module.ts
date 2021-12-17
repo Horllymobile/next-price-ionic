@@ -8,6 +8,7 @@ import { ResetPasswordPage } from './reset-password/reset-password.page';
 import { ResetPage } from './reset/reset.page';
 import { SignupPage } from './signup/signup.page';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {
@@ -44,6 +45,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes),
+    HttpClientModule,
   ],
 })
 export class AuthModule {}

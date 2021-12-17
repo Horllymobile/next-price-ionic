@@ -1,4 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-export enum Constants {
-  USER_TOKEN = 'TOKEN',
-}
+import { environment } from 'src/environments/environment';
+
+export const Constants = {
+  USER: {
+    TOKEN: 'TOKEN',
+    USER_PROFILE: 'USER',
+    AUTH_URL: `${environment.API_BASE_URL}/auth`,
+  },
+};
