@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginRequest } from 'src/app/core/shared/models/user';
 import { AuthService } from '../../../core/services/auth.service';
+import { Storage } from '@ionic/storage-angular';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -31,7 +32,7 @@ export class LoginPage implements OnInit {
 
   initForm() {
     this.loginForm = this.fb.group({
-      email: ['horlamidex1@gmail.com', [Validators.required, Validators.email]],
+      email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
     });
   }
@@ -64,6 +65,7 @@ export class LoginPage implements OnInit {
           } else {
             this.goToHome();
           }
+          // console.log(res.metaData);
           this.storageService.add(Constants.USER.USER_PROFILE, res.metaData);
         }
       },

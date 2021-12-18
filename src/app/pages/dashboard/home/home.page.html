@@ -5,7 +5,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div *ngIf="data">
+  <div *ngIf="products">
     <ion-text color="dark">
       <h6>All Goods & Services</h6>
     </ion-text>
@@ -15,7 +15,7 @@
 
 
     <ion-list>
-      <ion-card *ngFor="let item of data" class="ion-padding-top">
+      <ion-card *ngFor="let item of products" class="ion-padding-top">
         <ion-item-sliding lines="none">
           <ion-item lines="none" (click)="viewProduct(item)">
             <ion-label>
@@ -62,7 +62,7 @@
     </ion-list>
   </div>
 
-  <div *ngIf="!data">
+  <div *ngIf="!products">
     <div class="custom-skeleton">
       <!-- <ion-skeleton-text animated></ion-skeleton-text> -->
       <ion-list class="ion-margin-top">

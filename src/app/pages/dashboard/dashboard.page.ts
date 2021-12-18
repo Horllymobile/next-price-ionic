@@ -59,6 +59,7 @@ export class DashboardPage {
           icon: 'log-out-outline',
           handler: () => {
             if (this.authService.logout()) {
+              console.log('clicked');
               this.router.navigate(['', 'auth', 'login']);
             }
           },

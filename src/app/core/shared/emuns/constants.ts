@@ -7,4 +7,8 @@ export const Constants = {
     USER_PROFILE: 'USER',
     AUTH_URL: `${environment.API_BASE_URL}/auth`,
   },
+
+  PRODUCT: {
+    products: `${environment.API_BASE_URL}/products`,
+  },
 };

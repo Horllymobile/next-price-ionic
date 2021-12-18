@@ -7,7 +7,20 @@ import { SwiperModule } from 'swiper/angular';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { IonicStorageModule, Storage } from '@ionic/storage-angular';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpConfigInterceptor } from './core/interceptor/http.interceptor';
 
+export function jwtFactory(storage) {
+  return {
+    tokenGetter: () => {
+      return storage.get('USER').accessToken;
+    },
+    allowedDomains: [],
+    disallowedRoutes: [],
+  };
+}
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -18,8 +31,23 @@ import { AppRoutingModule } from './app-routing.module';
     DashboardModule,
     AppRoutingModule,
     SwiperModule,
+    IonicStorageModule.forRoot(),
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtFactory,
+        deps: [Storage],
+      },
+    }),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpConfigInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

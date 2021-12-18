@@ -77,7 +77,8 @@
             <p *ngIf="signupFormData.password.errors?.maxlength">Maximum password length is 16</p>
           </ion-text>
 
-          <ion-button [disabled]="signUpForm.invalid" class="mt-5" size="large" color="dark" expand="block">
+          <ion-button [disabled]="signUpForm.invalid" (click)="signUp(signupFormData)" class="mt-5" size="large"
+            color="dark" expand="block">
             <ion-spinner *ngIf="isLoading" slot="start" color="light" name="bubbles"></ion-spinner>
             Register
           </ion-button>

@@ -9,12 +9,17 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Constants } from '../emuns/constants';
+import { AuthService } from '../../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionGuard implements CanActivate {
-  constructor(private storageService: StorageService, private router: Router) {}
+  constructor(
+    private storageService: StorageService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -23,8 +28,7 @@ export class SessionGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const user = this.storageService.get(Constants.USER.USER_PROFILE);
-    if (user) {
+    if (!this.authService.isAutth()) {
       this.router.navigate(['/dashboard/tab/home']);
       return false;
     }

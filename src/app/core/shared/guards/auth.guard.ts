@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/core/services/auth.service';
 import { StorageService } from './../../services/storage.service';
 import { Injectable } from '@angular/core';
 import {
@@ -15,7 +16,11 @@ import { Constants } from '../emuns/constants';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private storageService: StorageService) {}
+  constructor(
+    private router: Router,
+    private storageService: StorageService,
+    private authService: AuthService
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -25,9 +30,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const user = this.storageService.get(Constants.USER.USER_PROFILE);
-    if (!user) {
-      this.storageService.clear();
+    if (this.authService.isAutth()) {
       this.router.navigate(['', 'auth', 'login'], {
         queryParams: { returnUrl: state.url },
       });

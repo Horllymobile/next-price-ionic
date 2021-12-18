@@ -9,62 +9,44 @@ import { ActionSheetController } from '@ionic/angular';
 import { EditProductComponent } from 'src/app/core/modals/edit-product/edit-product.component';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { IProduct } from 'src/app/core/shared/models/product';
+import { ProductService } from 'src/app/core/services/product.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  data: IProduct[];
+  products: IProduct[];
+
+  page = 0;
+  size = 20;
   constructor(
     private popOverController: PopoverController,
     private router: Router,
     private modalController: ModalController,
     private actionSheetCont: ActionSheetController,
-    private authService: AuthService
+    private authService: AuthService,
+    private productService: ProductService
   ) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.data = [
-        {
-          id: 'ID1223',
-          title: 'Gas',
-          price: 700,
-          uom: 'kg',
-          company: 'tobic gas station',
-          address: '138 Ijegun road Ikotun',
-          favourite: false,
-        },
-        {
-          id: 'ID1224',
-          title: 'egg roll',
-          uom: 'one',
-          price: 100,
-          address: 'shop 189 address',
-          company: 'general',
-          favourite: false,
-        },
-        {
-          id: 'ID1225',
-          title: 'Kerosine',
-          uom: 'ltr',
-          price: 200,
-          company: 'robine fill station',
-          address: 'shop 500 address',
-          favourite: false,
-        },
-        {
-          id: 'ID1226',
-          title: 'Spagetti',
-          uom: 'one',
-          price: 250,
-          address: 'building 230 address',
-          company: 'robine fill station',
-          favourite: true,
-        },
-      ];
-    }, 2000);
+    this.getProducts({ page: this.page, size: this.size });
+  }
+
+  getProducts(params: {
+    page: number;
+    size: number;
+    start_date?: string;
+    end_date?: string;
+  }) {
+    this.productService.getProducts(params).subscribe({
+      next: (res) => {
+        this.products = res.metaData;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   async dropDownMenu(event: any) {
@@ -79,7 +61,7 @@ export class HomePage implements OnInit {
   }
 
   markAsFavourite(id: string) {
-    let item = this.data.find((item) => item.id === id);
+    let item = this.products.find((item) => item.id === id);
 
     item.favourite = !item.favourite;
   }
