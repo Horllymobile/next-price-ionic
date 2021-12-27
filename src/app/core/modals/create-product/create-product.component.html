@@ -11,33 +11,68 @@
 
 <ion-content class="ion-padding">
 
-  <form>
+  <form [formGroup]="createProductForm">
+
+    <ion-item class="box" lines="none"
+      [ngClass]="{'error-box': createProductFormData.title.dirty && createProductFormData.title.invalid}">
+      <ion-input type="text" placeholder="Title" formControlName="title"
+        color="{{ (createProductFormData.title.dirty && createProductFormData.title.errors) ? 'danger' : '' }}">
+      </ion-input>
+    </ion-item>
+    <ion-text *ngIf="createProductFormData.title.dirty && createProductFormData.title.errors" color="danger">
+      <p *ngIf="createProductFormData.title.hasError('required')">
+        Title is required</p>
+    </ion-text>
+
+    <ion-item class="box" lines="none"
+      [ngClass]="{'error-box': createProductFormData.uom.dirty && createProductFormData.uom.invalid}">
+      <ion-input type="text" placeholder="Unit of measurement" formControlName="uom"
+        color="{{ (createProductFormData.uom.dirty && createProductFormData.uom.errors) ? 'danger' : '' }}"></ion-input>
+    </ion-item>
+    <ion-text *ngIf="createProductFormData.uom.dirty && createProductFormData.uom.errors" color="danger">
+      <p *ngIf="createProductFormData.uom.hasError('required')">
+        Unit of measurement is required</p>
+    </ion-text>
+
+    <ion-item class="box" lines="none"
+      [ngClass]="{'error-box': createProductFormData.price.dirty && createProductFormData.price.invalid}">
+      <ion-input type="number" placeholder="price per uom" formControlName="price"
+        color="{{ (createProductFormData.price.dirty && createProductFormData.price.errors) ? 'danger' : '' }}">
+      </ion-input>
+    </ion-item>
+    <ion-text *ngIf="createProductFormData.price.dirty && createProductFormData.price.errors" color="danger">
+      <p *ngIf="createProductFormData.price.hasError('required')">
+        Price per uom is required</p>
+    </ion-text>
+
+    <ion-item class="box" lines="none"
+      [ngClass]="{'error-box': createProductFormData.company.dirty && createProductFormData.company.invalid}">
+      <ion-input type="text" placeholder="Company or shop name" formControlName="company"
+        color="{{ (createProductFormData.company.dirty && createProductFormData.company.errors) ? 'danger' : '' }}">
+      </ion-input>
+    </ion-item>
+    <ion-text *ngIf="createProductFormData.company.dirty && createProductFormData.company.errors" color="danger">
+      <p *ngIf="createProductFormData.company.hasError('required')">
+        Company or shop is required</p>
+    </ion-text>
+
+    <ion-item class="box" lines="none"
+      [ngClass]="{'error-box': createProductFormData.address.dirty && createProductFormData.address.invalid}">
+      <ion-input type="text" placeholder="Company or shop address" formControlName="address"
+        color="{{ (createProductFormData.address.dirty && createProductFormData.address.errors) ? 'danger' : '' }}">
+      </ion-input>
+    </ion-item>
+    <ion-text *ngIf="createProductFormData.address.dirty && createProductFormData.address.errors" color="danger">
+      <p *ngIf="createProductFormData.address.hasError('required')">
+        Address is required</p>
+    </ion-text>
 
     <ion-item class="box" lines="none">
-      <ion-input type="text" placeholder="Title"></ion-input>
+      <ion-textarea placeholder="Description" formControlName="description"></ion-textarea>
     </ion-item>
 
-    <ion-item class="box" lines="none">
-      <ion-input type="text" placeholder="Unit of measurement"></ion-input>
-    </ion-item>
-
-    <ion-item class="box" lines="none">
-      <ion-input type="number" placeholder="price per UOM"></ion-input>
-    </ion-item>
-
-    <ion-item class="box" lines="none">
-      <ion-input type="text" placeholder="Company or shop name"></ion-input>
-    </ion-item>
-
-    <ion-item class="box" lines="none">
-      <ion-input type="text" placeholder="address"></ion-input>
-    </ion-item>
-
-    <ion-item class="box" lines="none">
-      <ion-textarea placeholder="Description"></ion-textarea>
-    </ion-item>
-
-    <ion-button type="submit" class="mt-5" expand="block" color="dark">
+    <ion-button type="submit" class="mt-5" expand="block" color="dark" [disabled]="!createProductForm.valid"
+      (click)="onSubmit(createProductFormData)">
       <ion-spinner *ngIf="isLoading" slot="start" color="light" name="bubbles"></ion-spinner> Create
     </ion-button>
 

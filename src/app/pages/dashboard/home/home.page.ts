@@ -1,8 +1,8 @@
 import { ViewProductDetailsComponent } from './../../../core/modals/view-product-details/view-product-details.component';
 import { ProfileModalComponent } from './../../../core/modals/profile-modal/profile-modal.component';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { PopoverController, AlertController } from '@ionic/angular';
 import { DropdownMenuComponent } from '../../../components/dropdown-menu/dropdown-menu.component';
 import { ModalController, ModalOptions } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
@@ -15,7 +15,7 @@ import { ProductService } from 'src/app/core/services/product.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnChanges {
   products: IProduct[];
 
   page = 0;
@@ -26,10 +26,15 @@ export class HomePage implements OnInit {
     private modalController: ModalController,
     private actionSheetCont: ActionSheetController,
     private authService: AuthService,
-    private productService: ProductService
+    private productService: ProductService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
+    this.getProducts({ page: this.page, size: this.size });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.getProducts({ page: this.page, size: this.size });
   }
 
@@ -64,6 +69,44 @@ export class HomePage implements OnInit {
     let item = this.products.find((item) => item.id === id);
 
     item.favourite = !item.favourite;
+  }
+
+  async deleteProduct(id: string) {
+    const alert = await this.alertController.create({
+      header: 'Delete Product',
+      message: 'Are you sure?',
+
+      buttons: [
+        {
+          text: 'Yes',
+          handler: async () => {
+            await this.delete(id);
+          },
+        },
+        'No',
+      ],
+    });
+
+    await alert.present();
+  }
+
+  async delete(id: string) {
+    this.productService.deleteProduct(id).subscribe({
+      next: async (res) => {
+        const alert = await this.alertController.create({
+          header: 'Success',
+          message: res.message,
+
+          buttons: ['OK'],
+        });
+        await alert.present().then(() => {
+          this.getProducts({ page: this.page, size: this.size });
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   async editProduct(id: string) {

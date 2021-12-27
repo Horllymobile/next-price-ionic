@@ -41,8 +41,13 @@
             <ion-item-option (click)="markAsFavourite(item.id)">
               <ion-icon name="heart" [color]=" item.favourite ? 'danger' : 'light'"></ion-icon>
             </ion-item-option>
+
             <ion-item-option (click)="editProduct(item.id)" color="warning">
               <ion-icon name="create" color="light" slot="end"></ion-icon>
+            </ion-item-option>
+
+            <ion-item-option (click)="deleteProduct(item.id)">
+              <ion-icon name="trash"></ion-icon>
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>

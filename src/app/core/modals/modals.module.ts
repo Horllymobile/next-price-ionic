@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { ViewProductDetailsComponent } from './view-product-details/view-product-details.component';
 import { ProfileModalComponent } from './profile-modal/profile-modal.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
@@ -17,6 +18,6 @@ import { CommonModule } from '@angular/common';
     ProfileModalComponent,
     ViewProductDetailsComponent,
   ],
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonicModule, ReactiveFormsModule],
 })
 export class ModalsModule {}
