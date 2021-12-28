@@ -1,10 +1,10 @@
 import { ViewProductDetailsComponent } from './../../../core/modals/view-product-details/view-product-details.component';
 import { ProfileModalComponent } from './../../../core/modals/profile-modal/profile-modal.component';
 import { Router } from '@angular/router';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { PopoverController, AlertController } from '@ionic/angular';
 import { DropdownMenuComponent } from '../../../components/dropdown-menu/dropdown-menu.component';
-import { ModalController, ModalOptions } from '@ionic/angular';
+import { ModalController, ModalOptions, ViewWillEnter } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { EditProductComponent } from 'src/app/core/modals/edit-product/edit-product.component';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -17,7 +17,7 @@ import { catchError, map } from 'rxjs/operators';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit, OnChanges {
+export class HomePage implements OnInit, OnDestroy, ViewWillEnter {
   products: IApiResponse<IProduct>;
   subs: Subscription;
   page = 0;
@@ -34,10 +34,16 @@ export class HomePage implements OnInit, OnChanges {
 
   ngOnInit() {
     this.getProducts({ page: this.page, size: this.size });
+
+
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ionViewWillEnter(): void {
     this.getProducts({ page: this.page, size: this.size });
+  }
+
+  ngOnDestroy(): void {
+      console.log('destroy')
   }
 
   getProducts(params: {
@@ -50,10 +56,7 @@ export class HomePage implements OnInit, OnChanges {
   this.productService.getProducts(params)
     .subscribe({
       next: (res) => {
-        console.log(res);
-        setTimeout(() => {
-          this.products = res
-        }, 2000)
+        this.products = res;
       },
       error: (err) => {
         console.log(err);

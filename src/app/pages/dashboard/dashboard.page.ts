@@ -18,11 +18,13 @@ export class DashboardPage {
   ) {}
 
   async createProduct() {
-    const modal = await this.modalController.create({
-      component: CreateProductComponent,
-    });
+    // const modal = await this.modalController.create({
+    //   component: CreateProductComponent,
+    // });
 
-    await modal.present();
+    // await modal.present();
+
+    // await modal.onDidDismiss().then(val => {})
   }
 
   async settings() {

@@ -8,6 +8,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { IProductPayload } from '../../shared/models/product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-product',
@@ -21,7 +22,8 @@ export class CreateProductComponent implements OnInit {
     private alertController: AlertController,
     private modalController: ModalController,
     private fb: FormBuilder,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -51,7 +53,7 @@ export class CreateProductComponent implements OnInit {
         {
           text: 'Yes',
           handler: async () => {
-            await this.modalController.dismiss();
+            this.router.navigateByUrl('/dashboard/tab/home');
           },
         },
         'Cancel',
@@ -84,7 +86,7 @@ export class CreateProductComponent implements OnInit {
         });
 
         await alert.present();
-        await this.modalController.dismiss();
+        this.router.navigateByUrl('/dashboard/tab/home');
       },
       error: (err) => {
         console.log(err);

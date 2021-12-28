@@ -8,6 +8,7 @@ import { CreatePageModule } from './create/create.module';
 import { DiscoverPageModule } from './discover/discover.module';
 import { FavouritePageModule } from './favourite/favourite.module';
 import { SettingsPageModule } from './settings/settings.module';
+import { CreateProductComponent } from 'src/app/core/modals/create-product/create-product.component';
 
 const routes: Routes = [
   {
@@ -28,8 +29,7 @@ const routes: Routes = [
       },
       {
         path: 'create',
-        loadChildren: () =>
-          import('./create/create.module').then((m) => m.CreatePageModule),
+        component: CreateProductComponent
       },
       {
         path: 'edit/:productId',
