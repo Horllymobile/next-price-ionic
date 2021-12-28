@@ -1,3 +1,10 @@
+
+export interface IApiResponse<T> {
+  page: number,
+  size: number,
+  metaData: Array<T>
+}
+
 export interface IProduct {
   id?: string;
   title: string;

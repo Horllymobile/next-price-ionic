@@ -12,23 +12,26 @@
 <ion-content class="ion-padding">
 
   <ion-item class="ion-text-center" lines="none">
-    <img style="border-radius: 50% !important; width: 150px; height: 150px; margin: 20px auto;"
+    <img *ngIf="!user.image" style="border-radius: 50% !important; width: 150px; height: 150px; margin: 20px auto;"
       src="../../../../assets/imgs/dummy.jpg" alt="Profile Image">
+
+    <img *ngIf="user.image" style="border-radius: 50% !important; width: 150px; height: 150px; margin: 20px auto;"
+      [src]="user.image" alt="Profile Image">
   </ion-item>
 
   <!-- <ion-icon name="pencil"></ion-icon> -->
 
   <ion-list>
     <ion-item>
-      <ion-text>Name: John Doe</ion-text>
+      <ion-text>Name: {{ user.firstName }} {{ user.lastName }}</ion-text>
     </ion-item>
 
     <ion-item>
-      <ion-text>Email: johndoe@doe.com</ion-text>
+      <ion-text>Email: {{ user.email }} </ion-text>
     </ion-item>
 
     <ion-item>
-      <ion-text>Phone: +1 225 844 8888</ion-text>
+      <ion-text>Phone: {{ user.phoneNumber }} </ion-text>
       <!-- <ion-icon name="clipboard-outline" slot="end"></ion-icon> -->
     </ion-item>
 

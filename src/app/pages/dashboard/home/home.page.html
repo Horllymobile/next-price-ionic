@@ -15,7 +15,7 @@
 
 
     <ion-list>
-      <ion-card *ngFor="let item of products" class="ion-padding-top">
+      <ion-card *ngFor="let item of products.metaData" class="ion-padding-top">
         <ion-item-sliding lines="none">
           <ion-item lines="none" (click)="viewProduct(item)">
             <ion-label>
@@ -38,9 +38,9 @@
           </ion-item>
 
           <ion-item-options slot="end">
-            <ion-item-option (click)="markAsFavourite(item.id)">
+            <!-- <ion-item-option (click)="markAsFavourite(item.id)">
               <ion-icon name="heart" [color]=" item.favourite ? 'danger' : 'light'"></ion-icon>
-            </ion-item-option>
+            </ion-item-option> -->
 
             <ion-item-option (click)="editProduct(item.id)" color="warning">
               <ion-icon name="create" color="light" slot="end"></ion-icon>
@@ -67,7 +67,7 @@
     </ion-list>
   </div>
 
-  <div *ngIf="!products">
+  <div *ngIf="!products?.metaData.length">
     <div class="custom-skeleton">
       <!-- <ion-skeleton-text animated></ion-skeleton-text> -->
       <ion-list class="ion-margin-top">
@@ -86,7 +86,7 @@
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
               </p>
             </ion-label>
-            <ion-badge color="secondary">
+            <ion-badge  color="medium">
               <ion-skeleton-text animated></ion-skeleton-text>
             </ion-badge>
             <!-- <ion-icon name="ellipse" color="light" slot="end"></ion-icon> -->
@@ -109,6 +109,9 @@
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
               </p>
             </ion-label>
+            <ion-badge  color="medium">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-badge>
             <!-- <ion-icon name="ellipse" color="light" slot="end"></ion-icon> -->
           </ion-item>
         </ion-card>
@@ -129,6 +132,9 @@
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
               </p>
             </ion-label>
+            <ion-badge  color="medium">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-badge>
             <!-- <ion-icon name="ellipse" color="light" slot="end"></ion-icon> -->
           </ion-item>
         </ion-card>
@@ -149,6 +155,9 @@
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
               </p>
             </ion-label>
+            <ion-badge  color="medium">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-badge>
             <!-- <ion-icon name="ellipse" color="light" slot="end"></ion-icon> -->
           </ion-item>
         </ion-card>
@@ -169,6 +178,9 @@
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
               </p>
             </ion-label>
+            <ion-badge  color="medium">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-badge>
             <!-- <ion-icon name="ellipse" color="light" slot="end"></ion-icon> -->
           </ion-item>
         </ion-card>

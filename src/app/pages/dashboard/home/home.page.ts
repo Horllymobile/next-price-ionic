@@ -8,16 +8,18 @@ import { ModalController, ModalOptions } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { EditProductComponent } from 'src/app/core/modals/edit-product/edit-product.component';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { IProduct } from 'src/app/core/shared/models/product';
+import { IApiResponse, IProduct } from 'src/app/core/shared/models/product';
 import { ProductService } from 'src/app/core/services/product.service';
+import { Observable, Subscription } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit, OnChanges {
-  products: IProduct[];
-
+  products: IApiResponse<IProduct>;
+  subs: Subscription;
   page = 0;
   size = 20;
   constructor(
@@ -44,14 +46,19 @@ export class HomePage implements OnInit, OnChanges {
     start_date?: string;
     end_date?: string;
   }) {
-    this.productService.getProducts(params).subscribe({
+    // console.log(params);
+  this.productService.getProducts(params)
+    .subscribe({
       next: (res) => {
-        this.products = res.metaData;
+        console.log(res);
+        setTimeout(() => {
+          this.products = res
+        }, 2000)
       },
       error: (err) => {
         console.log(err);
-      },
-    });
+      }
+    })
   }
 
   async dropDownMenu(event: any) {
@@ -63,12 +70,6 @@ export class HomePage implements OnInit, OnChanges {
     });
     await popover.present();
     const { role } = await popover.onDidDismiss();
-  }
-
-  markAsFavourite(id: string) {
-    let item = this.products.find((item) => item.id === id);
-
-    item.favourite = !item.favourite;
   }
 
   async deleteProduct(id: string) {

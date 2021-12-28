@@ -22,7 +22,6 @@ export class ProductService {
       page: params.page,
       size: params.size,
     };
-
     return this._http
       .get<any>(`${Constants.PRODUCT.products}`, { params: param })
       .pipe(
