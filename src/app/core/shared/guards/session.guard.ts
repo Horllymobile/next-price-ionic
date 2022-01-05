@@ -16,7 +16,6 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SessionGuard implements CanActivate {
   constructor(
-    private storageService: StorageService,
     private router: Router,
     private authService: AuthService
   ) {}

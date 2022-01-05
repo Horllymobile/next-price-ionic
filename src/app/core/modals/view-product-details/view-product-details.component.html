@@ -1,6 +1,6 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-title>{{ product.title | titlecase }}</ion-title>
+    <ion-title>{{ product?.title | titlecase }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button (click)="back()" defaultHref="/dashboard/tab/home"></ion-back-button>
     </ion-buttons>

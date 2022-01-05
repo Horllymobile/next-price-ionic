@@ -14,6 +14,7 @@ export interface IProduct {
   description?: string;
   address?: string;
   favourite: boolean;
+  approved: boolean;
 }
 
 export interface IProductPayload {

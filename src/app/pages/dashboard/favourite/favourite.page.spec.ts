@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { FavouritePage } from './favourite.page';
 
 describe('FavouritePage', () => {
@@ -10,7 +10,10 @@ describe('FavouritePage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FavouritePage ],
-      imports: [IonicModule.forRoot()]
+      imports: [
+        IonicModule.forRoot(),
+        RouterTestingModule
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FavouritePage);

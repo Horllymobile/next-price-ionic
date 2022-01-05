@@ -9,14 +9,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" *ngIf="user">
 
   <ion-item class="ion-text-center" lines="none">
-    <img *ngIf="!user.image" style="border-radius: 50% !important; width: 150px; height: 150px; margin: 20px auto;"
+    <img *ngIf="!user?.image" style="border-radius: 50% !important; width: 150px; height: 150px; margin: 20px auto;"
       src="../../../../assets/imgs/dummy.jpg" alt="Profile Image">
 
-    <img *ngIf="user.image" style="border-radius: 50% !important; width: 150px; height: 150px; margin: 20px auto;"
-      [src]="user.image" alt="Profile Image">
+    <img *ngIf="user?.image" style="border-radius: 50% !important; width: 150px; height: 150px; margin: 20px auto;"
+      [src]="user?.image" alt="Profile Image">
   </ion-item>
 
   <!-- <ion-icon name="pencil"></ion-icon> -->

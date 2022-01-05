@@ -12,6 +12,10 @@ import { IApiResponse, IProduct } from 'src/app/core/shared/models/product';
 import { ProductService } from 'src/app/core/services/product.service';
 import { Observable, Subscription } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { IUserData } from 'src/app/core/shared/models/user';
+import { StorageService } from 'src/app/core/services/storage.service';
+import { Constants } from 'src/app/core/shared/emuns/constants';
+import { IRole } from 'src/app/core/shared/emuns/Role';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -19,6 +23,9 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class HomePage implements OnInit, OnDestroy, ViewWillEnter {
   products: IApiResponse<IProduct>;
+  superAdmin = IRole.SUPER_ADMIN
+  admin = IRole.ADMIN
+  user$: Observable<IUserData>;
   subs: Subscription;
   page = 0;
   size = 20;
@@ -29,16 +36,37 @@ export class HomePage implements OnInit, OnDestroy, ViewWillEnter {
     private actionSheetCont: ActionSheetController,
     private authService: AuthService,
     private productService: ProductService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private storageService: StorageService
   ) {}
 
   ngOnInit() {
+    this.getUser();
     this.getProducts({ page: this.page, size: this.size });
+  }
 
+  doRefresh(event) {
+    // console.log('Begin async operation');
 
+    setTimeout(() => {
+      this.getUser();
+      this.getProducts({ page: this.page, size: this.size });
+      // console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
+  getUser() {
+    this.user$ = this.authService.userData.pipe(
+      map(val => {
+        console.log(val);
+        return val
+      })
+    )
   }
 
   ionViewWillEnter(): void {
+    this.getUser();
     this.getProducts({ page: this.page, size: this.size });
   }
 

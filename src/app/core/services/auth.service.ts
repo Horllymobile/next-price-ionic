@@ -1,8 +1,8 @@
 import { StorageService } from './storage.service';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { LoginRequest } from '../shared/models/user';
+import { IUserData, LoginRequest } from '../shared/models/user';
 import { Constants } from '../shared/emuns/constants';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -11,11 +11,20 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root',
 })
 export class AuthService {
+
+  userData: BehaviorSubject<any> = new BehaviorSubject(null);
+
   constructor(
     private _http: HttpClient,
     private _helper: JwtHelperService,
     private storageService: StorageService
-  ) {}
+  ) {
+    this.userData.next(storageService.get(Constants.USER.USER_PROFILE));
+  }
+
+  get currentUser() {
+    return this.userData.value;
+  }
 
   isAutth() {
     let token = this.storageService.get(Constants.USER.USER_PROFILE);

@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage-angular';
   providedIn: 'root',
 })
 export class StorageService {
-  constructor(private storage: Storage) {}
+  constructor() {}
 
   get(key: string) {
     return JSON.parse(localStorage.getItem(key));
