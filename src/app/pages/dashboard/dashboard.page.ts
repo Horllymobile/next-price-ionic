@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { ModalController, ModalOptions } from '@ionic/angular';
 import { CreateProductComponent } from 'src/app/core/modals/create-product/create-product.component';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/core/services/auth.service';
 @Component({
   selector: 'app-dashboard',
@@ -14,16 +14,15 @@ export class DashboardPage {
     private modalController: ModalController,
     private actionSheetCont: ActionSheetController,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private navController: NavController
   ) {}
 
   async createProduct() {
     // const modal = await this.modalController.create({
     //   component: CreateProductComponent,
     // });
-
     // await modal.present();
-
     // await modal.onDidDismiss().then(val => {})
   }
 
@@ -60,19 +59,16 @@ export class DashboardPage {
           role: 'logout',
           icon: 'log-out-outline',
           handler: () => {
-            if (this.authService.logout()) {
-              console.log('clicked');
-              this.router.navigate(['', 'auth', 'login']);
-            }
+            this.authService.logout();
+            this.router.navigate(['', 'auth', 'login'], {
+              replaceUrl: true,
+            });
           },
         },
         {
           text: 'Cancel',
           icon: 'close',
           role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          },
         },
       ],
     });

@@ -44,6 +44,15 @@ export class ProductService {
     );
   }
 
+  approveProduct(id: any) {
+    return this._http
+      .put<any>(`${Constants.PRODUCT.products}/approve/${id}`, {})
+      .pipe(
+        map((val) => val),
+        catchError((err) => throwError(this.handleError(err)))
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.log(error);
     return {

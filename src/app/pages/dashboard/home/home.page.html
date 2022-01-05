@@ -6,9 +6,7 @@
 </ion-header>
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-      pullingIcon="chevron-down-circle-outline"
-      pullingText="Pull to refresh"
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
       refreshingSpinner="circles">
     </ion-refresher-content>
   </ion-refresher>
@@ -44,25 +42,27 @@
             <!-- <ion-icon name="heart" [color]=" item.favourite ? 'danger' : 'light'"></ion-icon> -->
           </ion-item>
 
-          <ion-item-options slot="end" *ngIf="user$ | async as user">
+          <ion-item-options slot="end" *ngIf="user$ | async as userData">
             <!-- <ion-item-option (click)="markAsFavourite(item.id)">
               <ion-icon name="heart" [color]=" item.favourite ? 'danger' : 'light'"></ion-icon>
             </ion-item-option> -->
 
-            <ion-item-option *ngIf="user.roles.role === superAdmin || user.roles.role === admin"
-             (click)="editProduct(item.id)" color="warning">
+            <ion-item-option *ngIf="userData.roles.role === superAdmin
+            || userData.roles.role === admin || userData.roles.role === user" (click)="editProduct(item.id)"
+              color="warning">
               <ion-icon name="create" color="light" slot="end"></ion-icon>
             </ion-item-option>
 
-            <ion-item-option *ngIf="user.roles.role === superAdmin" (click)="deleteProduct(item.id)">
+            <ion-item-option *ngIf="userData.roles.role === superAdmin" (click)="approveProduct(item.id)">
               <ion-icon *ngIf="item.approved" name="thumbs-up-outline"></ion-icon>
               <ion-icon *ngIf="!item.approved" name="thumbs-down-outline"></ion-icon>
             </ion-item-option>
 
-            <ion-item-option *ngIf="user.roles.role === superAdmin || user.roles.role === admin"
-             (click)="deleteProduct(item.id)">
+            <ion-item-option color="danger" *ngIf="userData.roles.role === superAdmin || userData.roles.role === admin"
+              (click)="deleteProduct(item.id)">
               <ion-icon name="trash"></ion-icon>
             </ion-item-option>
+
           </ion-item-options>
         </ion-item-sliding>
       </ion-card>
@@ -100,7 +100,7 @@
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
               </p>
             </ion-label>
-            <ion-badge  color="medium">
+            <ion-badge color="medium">
               <ion-skeleton-text animated></ion-skeleton-text>
             </ion-badge>
             <!-- <ion-icon name="ellipse" color="light" slot="end"></ion-icon> -->
@@ -123,7 +123,7 @@
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
               </p>
             </ion-label>
-            <ion-badge  color="medium">
+            <ion-badge color="medium">
               <ion-skeleton-text animated></ion-skeleton-text>
             </ion-badge>
             <!-- <ion-icon name="ellipse" color="light" slot="end"></ion-icon> -->
@@ -146,7 +146,7 @@
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
               </p>
             </ion-label>
-            <ion-badge  color="medium">
+            <ion-badge color="medium">
               <ion-skeleton-text animated></ion-skeleton-text>
             </ion-badge>
             <!-- <ion-icon name="ellipse" color="light" slot="end"></ion-icon> -->
@@ -169,7 +169,7 @@
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
               </p>
             </ion-label>
-            <ion-badge  color="medium">
+            <ion-badge color="medium">
               <ion-skeleton-text animated></ion-skeleton-text>
             </ion-badge>
             <!-- <ion-icon name="ellipse" color="light" slot="end"></ion-icon> -->
@@ -192,7 +192,7 @@
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
               </p>
             </ion-label>
-            <ion-badge  color="medium">
+            <ion-badge color="medium">
               <ion-skeleton-text animated></ion-skeleton-text>
             </ion-badge>
             <!-- <ion-icon name="ellipse" color="light" slot="end"></ion-icon> -->

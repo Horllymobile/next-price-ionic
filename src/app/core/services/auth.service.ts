@@ -1,3 +1,4 @@
+import { ProductService } from './product.service';
 import { StorageService } from './storage.service';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -11,7 +12,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root',
 })
 export class AuthService {
-
   userData: BehaviorSubject<any> = new BehaviorSubject(null);
 
   constructor(
@@ -56,13 +56,13 @@ export class AuthService {
     );
   }
 
-  getUser(): LoginRequest {
-    const data = JSON.parse(localStorage.getItem(Constants.USER.TOKEN));
-    return new LoginRequest(data.email, data.password);
+  getUser() {
+    this.userData.next(this.storageService.get(Constants.USER.USER_PROFILE));
   }
 
   logout(): boolean {
     localStorage.removeItem(Constants.USER.USER_PROFILE);
+    this.userData.next(null);
     return true;
   }
 

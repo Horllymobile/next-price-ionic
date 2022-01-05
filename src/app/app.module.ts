@@ -1,3 +1,5 @@
+import { IUserData } from './core/shared/models/user';
+import { Constants } from './core/shared/emuns/constants';
 import { AuthModule } from './pages/auth/auth.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { NgModule } from '@angular/core';
@@ -12,10 +14,13 @@ import { IonicStorageModule, Storage } from '@ionic/storage-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpConfigInterceptor } from './core/interceptor/http.interceptor';
 
-export function jwtFactory(storage) {
+export function jwtFactory() {
   return {
     tokenGetter: () => {
-      return storage.get('USER').accessToken;
+      const user: IUserData = JSON.stringify(
+        localStorage.getItem(Constants.USER.USER_PROFILE)
+      ) as unknown as IUserData;
+      return user.accessToken;
     },
     allowedDomains: [],
     disallowedRoutes: [],
@@ -31,12 +36,12 @@ export function jwtFactory(storage) {
     DashboardModule,
     AppRoutingModule,
     SwiperModule,
-    IonicStorageModule.forRoot(),
+    // IonicStorageModule.forRoot(),
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,
         useFactory: jwtFactory,
-        deps: [Storage],
+        // deps: [Storage],
       },
     }),
   ],
